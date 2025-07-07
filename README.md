@@ -42,7 +42,7 @@ I'm building **TechBlog Pro** - a modern full-stack blog platform for learning N
 
 - [x] Repository created: github.com/fireballdev99/techblog-pro
 - [x] README.md written
-- [ ] Initial Next.js setup
+- [x] Initial Next.js setup
 - [ ] Docker configuration
 - [ ] TiDB Cloud setup
 - [ ] Authentication system
