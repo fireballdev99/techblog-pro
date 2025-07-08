@@ -251,6 +251,34 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Final CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700">
+        <div className="container max-w-screen-2xl px-8 lg:px-4">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Ready to Start Your Tech Journey?
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-blue-100">
+              Join thousands of developers who are already using TechBlog Pro to
+              share their knowledge and build their personal brand.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <Button size="lg" variant="secondary" asChild>
+                <Link href="/register">Get Started Free</Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="ghost"
+                className="text-white border border-white hover:bg-white hover:text-blue-600"
+                asChild
+              >
+                <Link href="/about">Learn More</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
