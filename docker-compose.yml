@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Next.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: techblog-pro-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=mysql://techblog:techblog123@mysql:3306/techblog_dev
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - techblog-network
+    restart: unless-stopped
+
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: techblog-pro-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=techblog_dev
+      - MYSQL_USER=techblog
+      - MYSQL_PASSWORD=techblog123
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - techblog-network
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: techblog-pro-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - techblog-network
+    restart: unless-stopped
+
+# Networks (Global)
+networks:
+  techblog-network:
+    driver: bridge
+
+# Volumes (Global)
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
