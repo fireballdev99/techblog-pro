@@ -5,6 +5,96 @@ All notable changes to TechBlog Pro will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 09/07/2025
+
+### Added
+
+- **Complete Database Integration**
+
+  - Prisma ORM setup with MySQL provider and Redis configuration
+  - Comprehensive database schema design with proper relationships
+  - User, Author, BlogPost, Category, Tag, and junction table models
+  - Database migrations system with development workflow
+  - Shadow database configuration for safe schema changes
+  - Prisma Studio integration for database management
+
+- **NextAuth.js Authentication System**
+
+  - Complete OAuth authentication with Google and GitHub providers
+  - Database-backed session management with Prisma adapter
+  - User registration and login flow with secure token handling
+  - Professional sign-in page with gradient design and loading states
+  - Session provider setup for app-wide authentication state
+  - Protected route foundations and middleware preparation
+
+- **Database Schema & Models**
+
+  - NextAuth required tables (Account, Session, VerificationToken)
+  - User model with OAuth compatibility and role-based access
+  - Author model linked to User for content creation
+  - BlogPost model with rich metadata (title, slug, content, status)
+  - Category and Tag models with many-to-many relationships
+  - Junction table (TagOnBlogPost) for flexible content organization
+
+- **Development Workflow**
+  - Docker-integrated Prisma commands for seamless development
+  - Database migration scripts accessible via pnpm commands
+  - Prisma Studio UI accessible at localhost:5555
+  - Environment variable management for OAuth providers
+  - Hot reload support for database schema changes
+
+### Enhanced
+
+- **Authentication UI/UX**
+
+  - Beautiful sign-in page with modern gradient backgrounds
+  - OAuth provider buttons with proper loading states and icons
+  - Error handling and user feedback systems
+  - Responsive design for mobile and desktop authentication
+  - Smooth transitions and professional animations
+
+- **Security Features**
+  - Secure OAuth token handling and storage
+  - Environment-based configuration for development and production
+  - PKCE (Proof Key for Code Exchange) implementation
+  - Secure session management with automatic expiration
+  - Role-based access control foundations
+
+### Technical
+
+- **Database Architecture**
+
+  - Optimized MySQL schema with proper indexing and constraints
+  - Prisma Client generation with TypeScript type safety
+  - Foreign key relationships with cascade delete protection
+  - Unique constraints for data integrity (emails, slugs)
+  - CUID-based primary keys for better performance
+
+- **Authentication Infrastructure**
+
+  - NextAuth.js v4 with latest security practices
+  - Prisma adapter for database session storage
+  - JWT and database session strategy support
+  - OAuth provider configuration with proper scopes
+  - Custom session callbacks for role management
+
+- **Development Environment**
+  - Updated Docker configuration for database integration
+  - Port mapping for Prisma Studio (5555) accessibility
+  - Environment variable management across containers
+  - Database health checks and initialization scripts
+
+### Infrastructure
+
+- **Production Readiness**
+  - Database schema ready for production deployment
+  - Authentication system scalable for multiple users
+  - OAuth provider configuration for production domains
+  - Session management optimized for performance
+  - Security best practices implementation
+
+---
+
 ## [0.3.0] - 09/07/2025
 
 ### Added
