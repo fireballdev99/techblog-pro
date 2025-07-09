@@ -18,6 +18,10 @@ RUN npm install -g pnpm
 COPY package*.json pnpm-lock.yaml ./
 RUN pnpm install
 
+# Prisma setup
+COPY prisma ./prisma/
+RUN npx prisma generate
+
 #  Source code
 COPY . .
 
@@ -29,6 +33,7 @@ RUN adduser --system --uid 1001 nextjs
 
 # Runtime
 EXPOSE 3000
+EXPOSE 5555
 
 # Environment variable for Next.js
 ENV NODE_ENV=development

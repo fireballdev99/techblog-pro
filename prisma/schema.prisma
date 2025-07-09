@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// User สำหรับ Authentication
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  image     String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("users")
+}
+
+// Author สำหรับ Content Creation  
+model Author {
+  id        String     @id @default(cuid())
+  name      String
+  email     String     @unique
+  image     String?
+  bio       String?
+  github    String?
+  linkedin  String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  
+  // Relations - ฝั่ง "One" ของ One-to-Many
+  blogPosts BlogPost[] // 1 author → many blog posts
+  
+  @@map("authors")
+}
+
+// BlogPost สำหรับ Content
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  content     String    @db.Text
+  slug        String    @unique
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  image       String?
+  readingTime Int?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations - ฝั่ง "Many" ของ One-to-Many
+  authorId   String
+  author     Author    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  
+  // Relations - ฝั่ง "Many" ของ Many-to-One กับ Category
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  
+  // Relations - Many-to-Many กับ Tags
+  tags       TagOnBlogPost[]
+  
+  @@map("blog_posts")
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  slug        String     @unique
+  description String?
+  createdAt   DateTime   @default(now())
+  
+  // Relations - ฝั่ง "One" ของ One-to-Many
+  blogPosts   BlogPost[] // 1 category → many blog posts
+  
+  @@map("categories")
+}
+
+model Tag {
+  id          String            @id @default(cuid())
+  name        String            @unique
+  slug        String            @unique
+  description String?
+  createdAt   DateTime          @default(now())
+  
+  // Relations - Many-to-Many กับ BlogPosts
+  blogPosts   TagOnBlogPost[]
+  
+  @@map("tags")
+}
+
+// Junction Table สำหรับ Many-to-Many
+model TagOnBlogPost {
+  id         String   @id @default(cuid())
+  blogPostId String
+  tagId      String
+  
+  // Relations - เชื่อมทั้ง 2 ฝั่ง
+  blogPost   BlogPost @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
+  tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  
+  @@unique([blogPostId, tagId])  // ป้องกันข้อมูลซ้ำ
+  @@map("tag_on_blog_posts")
+}
+
+enum Role {
+  USER
+  AUTHOR
+  ADMIN
+}
