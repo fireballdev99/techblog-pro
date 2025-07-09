@@ -4,6 +4,7 @@ import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { siteConfig } from '@/config/site';
+import NextAuthSessionProvider from '@/components/providers/session-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -30,11 +31,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        <main className="min-h-screen">
-          <div className="container max-w-screen-2xl py-8">{children}</div>
-        </main>
-        <Footer />
+        <NextAuthSessionProvider>
+          <Header />
+          <main className="min-h-screen">
+            <div className="container max-w-screen-2xl py-8">{children}</div>
+          </main>
+          <Footer />
+        </NextAuthSessionProvider>
       </body>
     </html>
   );
