@@ -75,7 +75,7 @@ export function Header() {
             {/* Auth buttons - แสดงแค่ desktop */}
             <div className="hidden md:flex items-center gap-2">
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/login">Sign In</Link>
+                <Link href="/auth/signin">Sign In</Link>
               </Button>
               <Button
                 size="sm"
@@ -112,7 +112,7 @@ export function Header() {
                   className="w-full  hover:bg-accent/50 transition-all duration-200"
                   asChild
                 >
-                  <Link href="/login">Sign In</Link>
+                  <Link href="/auth/signin">Sign In</Link>
                 </Button>
                 <Button
                   className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
